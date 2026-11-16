@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Валидация SSH | Лаборатория морских прогнозов</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Добавляем стили для модального окна */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 1200px;
+            max-height: 80vh;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .ssh-image-wrapper img {
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .ssh-image-wrapper img:hover {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Лаборатория морских прогнозов</h1>
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="validation-sst.html">Валидация SST</a>
+            <a href="validation-ssh.html" class="active">Валидация SSH</a>
+            <a href="validation-argo.html">Валидация ARGO</a>
+        </nav>
+    </header>
+    
+    <main>
+        <h2>Валидация данных уровня моря (SSH)</h2>
+        
+        <section class="controls">
+            <div class="control-group">
+                <label for="date-select">Выберите дату:</label>
+                <select id="date-select"></select>
+            </div>
+        </section>
+        
+        <section class="ssh-images-container">
+            <div class="ssh-image-group">
+                <h3>Модель NEMO</h3>
+                <div class="ssh-image-wrapper">
+                    <img id="model-image" src="" alt="Модель SSH" onclick="openModal(this)">
+                </div>
+            </div>
+            
+            <div class="ssh-image-group">
+                <h3>Спутниковые данные</h3>
+                <div class="ssh-image-wrapper">
+                    <img id="satellite-image" src="" alt="Спутниковые данные SSH" onclick="openModal(this)">
+                </div>
+            </div>
+            
+            <div class="ssh-image-group">
+                <h3>Разница (модель - спутник)</h3>
+                <div class="ssh-image-wrapper">
+                    <img id="difference-image" src="" alt="Разница SSH" onclick="openModal(this)">
+                </div>
+            </div>
+        </section>
+        
+        <section class="validation-stats">
+            <h3>Статистика валидации</h3>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-label">Среднее:</span>
+                    <span id="mean-value" class="stat-value">-</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Стандартное отклонение:</span>
+                    <span id="std-value" class="stat-value">-</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Корреляция:</span>
+                    <span id="corr-value" class="stat-value">-</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Пикселей:</span>
+                    <span id="pixels-value" class="stat-value">-</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="latest-validation">
+            <h3>Отклонения SSH за последние 90 дней</h3>
+            <div class="ssh-image-wrapper">
+                <img id="latest-validation-image" src="images/ssh/valid_ssh.png" alt="Отклонения SSH за последние 90 дней" onclick="openModal(this)">
+            </div>
+            <p class="update-time">Последнее обновление: <span id="last-update">-</span></p>
+        </section>
+    </main>
+    
+    <!-- Модальное окно для увеличенного изображения -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+    
+    <footer>
+        <p>© 2026 Лаборатория морских прогнозов</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Функции для работы с модальным окном
+        function openModal(img) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+        }
+        
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+        
+        // Закрытие модального окна при клике вне изображения
+        window.onclick = function(event) {
+            const modal = document.getElementById("imageModal");
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Загрузка данных
+            const response = await fetch('data/results_ssh.json');
+            const data = await response.json();
+            
+            // Заполнение выпадающего списка дат
+            const dateSelect = document.getElementById('date-select');
+            data.images.forEach(item => {
+                const option = document.createElement('option');
+                const dateStr = item.date;
+                const formattedDate = `${dateStr.slice(0,4)}-${dateStr.slice(4,6)}-${dateStr.slice(6,8)}`;
+                option.value = item.date;
+                option.textContent = formattedDate;
+                dateSelect.appendChild(option);
+            });
+            
+            // Установка последней даты по умолчанию
+            if (data.images.length > 0) {
+                const lastDate = data.images[data.images.length - 1].date;
+                dateSelect.value = lastDate;
+                updateImages(lastDate, data);
+            }
+            
+            // Обновление времени последнего обновления
+            document.getElementById('last-update').textContent = data.last_update;
+            
+            // Обработчик изменения даты
+            dateSelect.addEventListener('change', function() {
+                updateImages(this.value, data);
+            });
+            
+            function updateImages(date, data) {
+                const selectedData = data.images.find(item => item.date === date);
+                const statsData = data.stats.find(item => item.date === date);
+                
+                if (selectedData) {
+                    document.getElementById('model-image').src = `images/ssh/${selectedData.model_image}`;
+                    document.getElementById('satellite-image').src = `images/ssh/${selectedData.satellite_image}`;
+                    document.getElementById('difference-image').src = `images/ssh/${selectedData.difference_image}`;
+                }
+                
+                if (statsData) {
+                    document.getElementById('mean-value').textContent = statsData.mean.toFixed(4);
+                    document.getElementById('std-value').textContent = statsData.std.toFixed(4);
+                    document.getElementById('corr-value').textContent = statsData.corr.toFixed(4);
+                    document.getElementById('pixels-value').textContent = statsData.pixels;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

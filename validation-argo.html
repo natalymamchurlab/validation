@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Валидация ARGO | Лаборатория морских прогнозов</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=1213ff48-b39b-4fc9-b956-7c7e82ea0462&lang=ru_RU" type="text/javascript"></script>
+    <style>
+        .map-container { height: 460px; }
+        .argo-summary { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin:1rem 0; }
+        .argo-summary .card { background:#fff; border-radius:6px; padding:1rem; box-shadow:0 2px 4px rgba(0,0,0,.1); text-align:center; }
+        .argo-summary .card .val { display:block; font-size:1.5rem; color:#005b96; font-weight:bold; }
+        .argo-summary .card .lbl { font-size:.85rem; color:#666; }
+        @media(max-width:900px){ .argo-summary{grid-template-columns:repeat(2,1fr);} }
+
+        .legend-bar { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-bottom:.75rem;
+                      background:#fff; padding:.75rem 1rem; border-radius:6px; box-shadow:0 2px 4px rgba(0,0,0,.05); }
+        .legend-bar label { font-weight:bold; color:#333; }
+        .legend-bar .gradient {
+            width:180px; height:14px; border-radius:3px;
+            background:linear-gradient(90deg,#1a9850,#a6d96a,#ffffbf,#fdae61,#d73027);
+            border:1px solid #ddd;
+        }
+        .legend-bar .grad-labels { display:flex; justify-content:space-between; width:180px; font-size:.75rem; color:#666; }
+
+        .buoy-table-wrap { background:#fff; border-radius:6px; box-shadow:0 2px 4px rgba(0,0,0,.1); overflow-x:auto; }
+        .buoy-table { width:100%; border-collapse:collapse; font-size:.9rem; }
+        .buoy-table th, .buoy-table td { padding:.6rem .75rem; text-align:left; border-bottom:1px solid #eee; white-space:nowrap; }
+        .buoy-table th { background:#f5f7fa; cursor:pointer; user-select:none; position:relative; font-weight:600; color:#005b96; }
+        .buoy-table th:hover { background:#e9eff5; }
+        .buoy-table th::after { content:''; opacity:.3; margin-left:.4rem; }
+        .buoy-table th.sort-asc::after  { content:'▲'; opacity:1; }
+        .buoy-table th.sort-desc::after { content:'▼'; opacity:1; }
+        .buoy-table tbody tr { cursor:pointer; transition:background .15s; }
+        .buoy-table tbody tr:hover { background:#eef6ff; }
+        .buoy-table tbody tr.highlight { background:#fff3cd; }
+        .buoy-table td.num { text-align:right; font-variant-numeric:tabular-nums; }
+        .buoy-table .metric-badge {
+            display:inline-block; min-width:56px; text-align:center; padding:2px 8px; border-radius:12px;
+            color:#fff; font-weight:bold; font-size:.8rem;
+        }
+        .buoy-table a { color:#005b96; text-decoration:none; font-weight:600; }
+        .buoy-table a:hover { text-decoration:underline; }
+        .table-empty { padding:2rem; text-align:center; color:#888; }
+
+        .metric-help { margin-top:.75rem; padding:.75rem 1rem; background:#f9f9f9; border-radius:6px;
+                       font-size:.82rem; color:#555; line-height:1.5; }
+        .metric-help b { color:#005b96; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Лаборатория морских прогнозов</h1>
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="validation-sst.html">Валидация SST</a>
+            <a href="validation-ssh.html">Валидация SSH</a>
+            <a href="validation-argo.html" class="active">Валидация ARGO</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Валидация данных ARGO</h2>
+
+        <div class="subnav">
+            <a href="argo-profiles.html" class="subnav-item">Профили температуры</a>
+            <a href="argo-time-series.html" class="subnav-item">Временные ряды</a>
+        </div>
+
+        <!-- Сводные карточки -->
+        <section class="argo-summary" id="summary">
+            <div class="card"><span class="val" id="sum-buoys">—</span><span class="lbl">Буёв</span></div>
+            <div class="card"><span class="val" id="sum-profiles">—</span><span class="lbl">Профилей</span></div>
+            <div class="card"><span class="val" id="sum-points">—</span><span class="lbl">Точек сравнения</span></div>
+            <div class="card"><span class="val" id="sum-rmse">—</span><span class="lbl">Общий RMSE, °C</span></div>
+        </section>
+
+        <!-- Легенда и переключатель метрики -->
+        <section class="legend-bar">
+            <label for="metric-select">Раскраска карты и таблицы по:</label>
+            <select id="metric-select">
+                <option value="rmse">RMSE (°C)</option>
+                <option value="bias">Bias (°C)</option>
+                <option value="mae">MAE (°C)</option>
+            </select>
+            <div>
+                <div class="gradient" id="legend-gradient"></div>
+                <div class="grad-labels"><span id="legend-min">—</span><span id="legend-max">—</span></div>
+            </div>
+        </section>
+
+        <!-- Карта -->
+        <section class="map-container">
+            <div id="map"></div>
+        </section>
+
+        <!-- Таблица -->
+        <section class="buoy-table-wrap">
+            <table class="buoy-table" id="buoy-table">
+                <thead>
+                    <tr>
+                        <th data-key="id">Буй</th>
+                        <th data-key="region">Регион</th>
+                        <th data-key="period">Период</th>
+                        <th data-key="depths" class="num">Глубин</th>
+                        <th data-key="profiles" class="num">Профилей</th>
+                        <th data-key="points" class="num">Точек</th>
+                        <th data-key="rmse" class="num" title="Root Mean Square Error — среднеквадратичная ошибка, °C">RMSE</th>
+                        <th data-key="bias" class="num" title="Bias — среднее отклонение (модель − ARGO), °C">Bias</th>
+                        <th data-key="mae" class="num" title="Mean Absolute Error — средняя абсолютная ошибка, °C">MAE</th>
+                        <th data-key="r2" class="num" title="R² — коэффициент детерминации">R²</th>
+                    </tr>
+                </thead>
+                <tbody id="buoy-tbody">
+                    <tr><td colspan="10" class="table-empty">Загрузка данных…</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Расшифровка метрик -->
+        <div class="metric-help">
+            <b>RMSE</b> — Root Mean Square Error, среднеквадратичная ошибка, °C<br>
+            <b>Bias</b> — среднее отклонение (модель − ARGO), °C<br>
+            <b>MAE</b> — Mean Absolute Error, средняя абсолютная ошибка, °C<br>
+            <b>R²</b> — коэффициент детерминации
+        </div>
+    </main>
+
+    <footer><p>© 2026 Лаборатория морских прогнозов</p></footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/argoSummary.js"></script>
+    <script>
+        ymaps.ready(function () {
+            const map = new ymaps.Map('map', {
+                center: [44.0, 35.0],
+                zoom: 6,
+                type: 'yandex#hybrid',
+                controls: ['zoomControl', 'fullscreenControl', 'typeSelector'],
+            });
+            if (typeof initArgoSummary === 'function') {
+                initArgoSummary(map);
+            }
+        });
+    </script>
+</body>
+</html>

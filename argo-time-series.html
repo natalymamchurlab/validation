@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARGO: Временные ряды | Лаборатория морских прогнозов</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=1213ff48-b39b-4fc9-b956-7c7e82ea0462&lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+    <header>
+        <h1>Лаборатория морских прогнозов</h1>
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="validation-sst.html">Валидация SST</a>
+            <a href="validation-ssh.html">Валидация SSH</a>
+            <a href="validation-argo.html" class="active">Валидация ARGO</a>
+        </nav>
+    </header>
+    
+    <main>
+        <h2>ARGO: Временные ряды</h2>
+        
+        <div class="subnav">
+            <a href="argo-profiles.html" class="subnav-item">Профили температуры</a>
+            <a href="argo-time-series.html" class="subnav-item active">Временные ряды</a>
+        </div>
+        
+        <section class="controls">
+            <div class="control-group">
+                <label for="buoy-select">Буй:</label>
+                <select id="buoy-select"></select>
+            </div>
+            <div class="control-group">
+                <label for="depth-select">Глубина (м):</label>
+                <select id="depth-select"></select>
+            </div>
+        </section>
+        
+        <section class="map-container">
+            <div id="map" style="width: 100%; height: 460px; background: #eee;"></div>
+            <div id="map-error" style="display:none; color:#b00; font-weight:bold; padding: 10px; text-align: center;"></div>
+        </section>
+        
+        <section class="plot-container">
+            <div id="plot"></div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2026 Лаборатория морских прогнозов</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/depthPage.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log("DOM загружен. Инициализация Временных рядов...");
+            let mapInstance = null;
+
+            function startApp() {
+                if (typeof initDepthPage === 'function') {
+                    initDepthPage(mapInstance);
+                } else {
+                    console.error("Функция initDepthPage не найдена!");
+                }
+            }
+
+            if (typeof ymaps !== 'undefined') {
+                ymaps.ready(function () {
+                    try {
+                        mapInstance = new ymaps.Map('map', {
+                            center: [44.0, 35.0],
+                            zoom: 4,
+                            type: 'yandex#hybrid'
+                        });
+                    } catch (e) {
+                        console.error("Ошибка создания карты:", e);
+                        document.getElementById('map-error').style.display = 'block';
+                        document.getElementById('map-error').textContent = 'Ошибка загрузки карты';
+                    }
+                    startApp();
+                });
+            } else {
+                console.warn("ymaps не загружен! Работаем без карты.");
+                document.getElementById('map').style.display = 'none';
+                document.getElementById('map-error').style.display = 'block';
+                document.getElementById('map-error').textContent = 'Карта недоступна, но данные работают.';
+                startApp();
+            }
+        });
+    </script>
+</body>
+</html>
