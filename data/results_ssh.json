@@ -1,55 +1,6 @@
 {
     "images": [
         {
-            "date": "20260817",
-            "model_image": "nemo_bs_ssh_model_20260817.png",
-            "satellite_image": "ssh_l4_20260817.png",
-            "difference_image": "diff_ssh_20260817.png",
-            "validation_image": "valid_ssh.png"
-        },
-        {
-            "date": "20260818",
-            "model_image": "nemo_bs_ssh_model_20260818.png",
-            "satellite_image": "ssh_l4_20260818.png",
-            "difference_image": "diff_ssh_20260818.png",
-            "validation_image": "valid_ssh.png"
-        },
-        {
-            "date": "20260819",
-            "model_image": "nemo_bs_ssh_model_20260819.png",
-            "satellite_image": "ssh_l4_20260819.png",
-            "difference_image": "diff_ssh_20260819.png",
-            "validation_image": "valid_ssh.png"
-        },
-        {
-            "date": "20260820",
-            "model_image": "nemo_bs_ssh_model_20260820.png",
-            "satellite_image": "ssh_l4_20260820.png",
-            "difference_image": "diff_ssh_20260820.png",
-            "validation_image": "valid_ssh.png"
-        },
-        {
-            "date": "20260821",
-            "model_image": "nemo_bs_ssh_model_20260821.png",
-            "satellite_image": "ssh_l4_20260821.png",
-            "difference_image": "diff_ssh_20260821.png",
-            "validation_image": "valid_ssh.png"
-        },
-        {
-            "date": "20260822",
-            "model_image": "nemo_bs_ssh_model_20260822.png",
-            "satellite_image": "ssh_l4_20260822.png",
-            "difference_image": "diff_ssh_20260822.png",
-            "validation_image": "valid_ssh.png"
-        },
-        {
-            "date": "20260823",
-            "model_image": "nemo_bs_ssh_model_20260823.png",
-            "satellite_image": "ssh_l4_20260823.png",
-            "difference_image": "diff_ssh_20260823.png",
-            "validation_image": "valid_ssh.png"
-        },
-        {
             "date": "20260824",
             "model_image": "nemo_bs_ssh_model_20260824.png",
             "satellite_image": "ssh_l4_20260824.png",
@@ -570,8 +521,8 @@
         {
             "date": "20261108",
             "model_image": "nemo_bs_ssh_model_20261108.png",
-            "satellite_image": null,
-            "difference_image": null,
+            "satellite_image": "ssh_l4_20261108.png",
+            "difference_image": "diff_ssh_20261108.png",
             "validation_image": "valid_ssh.png"
         },
         {
@@ -598,15 +549,15 @@
         {
             "date": "20261112",
             "model_image": "nemo_bs_ssh_model_20261112.png",
-            "satellite_image": null,
-            "difference_image": null,
+            "satellite_image": "ssh_l4_20261112.png",
+            "difference_image": "diff_ssh_20261112.png",
             "validation_image": "valid_ssh.png"
         },
         {
             "date": "20261113",
             "model_image": "nemo_bs_ssh_model_20261113.png",
-            "satellite_image": null,
-            "difference_image": null,
+            "satellite_image": "ssh_l4_20261113.png",
+            "difference_image": "diff_ssh_20261113.png",
             "validation_image": "valid_ssh.png"
         },
         {
@@ -629,58 +580,58 @@
             "satellite_image": "ssh_l4_20261116.png",
             "difference_image": "diff_ssh_20261116.png",
             "validation_image": "valid_ssh.png"
+        },
+        {
+            "date": "20261117",
+            "model_image": "nemo_bs_ssh_model_20261117.png",
+            "satellite_image": "ssh_l4_20261117.png",
+            "difference_image": "diff_ssh_20261117.png",
+            "validation_image": "valid_ssh.png"
+        },
+        {
+            "date": "20261118",
+            "model_image": "nemo_bs_ssh_model_20261118.png",
+            "satellite_image": "ssh_l4_20261118.png",
+            "difference_image": "diff_ssh_20261118.png",
+            "validation_image": "valid_ssh.png"
+        },
+        {
+            "date": "20261119",
+            "model_image": "nemo_bs_ssh_model_20261119.png",
+            "satellite_image": null,
+            "difference_image": null,
+            "validation_image": "valid_ssh.png"
+        },
+        {
+            "date": "20261120",
+            "model_image": "nemo_bs_ssh_model_20261120.png",
+            "satellite_image": null,
+            "difference_image": null,
+            "validation_image": "valid_ssh.png"
+        },
+        {
+            "date": "20261121",
+            "model_image": "nemo_bs_ssh_model_20261121.png",
+            "satellite_image": "ssh_l4_20261121.png",
+            "difference_image": "diff_ssh_20261121.png",
+            "validation_image": "valid_ssh.png"
+        },
+        {
+            "date": "20261122",
+            "model_image": "nemo_bs_ssh_model_20261122.png",
+            "satellite_image": "ssh_l4_20261122.png",
+            "difference_image": "diff_ssh_20261122.png",
+            "validation_image": "valid_ssh.png"
+        },
+        {
+            "date": "20261123",
+            "model_image": "nemo_bs_ssh_model_20261123.png",
+            "satellite_image": "ssh_l4_20261123.png",
+            "difference_image": "diff_ssh_20261123.png",
+            "validation_image": "valid_ssh.png"
         }
     ],
     "stats": [
-        {
-            "date": "20260817",
-            "mean": -0.18878131020745864,
-            "std": 0.0694689422003347,
-            "corr": -0.030972758128070318,
-            "pixels": 21515
-        },
-        {
-            "date": "20260818",
-            "mean": -0.2116663755308403,
-            "std": 0.07153162036782233,
-            "corr": 0.053157506234398244,
-            "pixels": 21515
-        },
-        {
-            "date": "20260819",
-            "mean": -0.23280934455701977,
-            "std": 0.07356459806001497,
-            "corr": -0.05255588652773693,
-            "pixels": 21515
-        },
-        {
-            "date": "20260820",
-            "mean": -0.2639521411383756,
-            "std": 0.0763590742573026,
-            "corr": -0.028620371920518868,
-            "pixels": 21515
-        },
-        {
-            "date": "20260821",
-            "mean": -0.27604679425689066,
-            "std": 0.0767097698849783,
-            "corr": -0.07532567523542004,
-            "pixels": 21515
-        },
-        {
-            "date": "20260822",
-            "mean": -0.2976914020618411,
-            "std": 0.07559206807833796,
-            "corr": -0.13844167722716144,
-            "pixels": 21515
-        },
-        {
-            "date": "20260823",
-            "mean": -0.32464607530459455,
-            "std": 0.07401535844259835,
-            "corr": -0.24692163205856724,
-            "pixels": 21515
-        },
         {
             "date": "20260824",
             "mean": -0.33901139409645953,
@@ -1180,88 +1131,137 @@
         },
         {
             "date": "20261105",
-            "mean": -0.0011805784753812654,
-            "std": 0.07384946987542443,
-            "corr": 0.38666956116677054,
+            "mean": -0.015946615932432386,
+            "std": 0.07384946984998149,
+            "corr": 0.3866695567158259,
             "pixels": 21515
         },
         {
             "date": "20261106",
-            "mean": 0.01727713904454934,
-            "std": 0.08161490403096743,
-            "corr": 0.1019224382842637,
+            "mean": 0.0025111015818256466,
+            "std": 0.08161490401972882,
+            "corr": 0.1019224405186815,
             "pixels": 21515
         },
         {
             "date": "20261107",
-            "mean": 0.022839006835090228,
-            "std": 0.08197501259490068,
-            "corr": 0.14804657045194677,
+            "mean": 0.008072969368112096,
+            "std": 0.08197501259964816,
+            "corr": 0.14804657221573247,
             "pixels": 21515
         },
         {
             "date": "20261108",
-            "mean": 0.022839006835090228,
-            "std": 0.08197501259490068,
-            "corr": 0.1777096573835896,
+            "mean": 0.0339995261729075,
+            "std": 0.08563819646435991,
+            "corr": 0.10029763596219837,
             "pixels": 21515
         },
         {
             "date": "20261109",
-            "mean": 0.022839006835090228,
-            "std": 0.08197501259490068,
-            "corr": -0.025500918347213596,
+            "mean": 0.0352360541357881,
+            "std": 0.0900865473579184,
+            "corr": -0.0328312384795104,
             "pixels": 21515
         },
         {
             "date": "20261110",
-            "mean": 0.022839006835090228,
-            "std": 0.08197501259490068,
-            "corr": -0.07016293254151794,
+            "mean": 0.023141645347662495,
+            "std": 0.09680793573535688,
+            "corr": -0.10273522751207056,
             "pixels": 21515
         },
         {
             "date": "20261111",
-            "mean": 0.08818102644221962,
-            "std": 0.12885322824257736,
-            "corr": -0.22045640246227152,
+            "mean": 0.02441303925578568,
+            "std": 0.10391412001163308,
+            "corr": -0.15566115593391958,
             "pixels": 21515
         },
         {
             "date": "20261112",
-            "mean": 0.08818102644221962,
-            "std": 0.12885322824257736,
-            "corr": -0.3242052502215623,
+            "mean": 0.02147066451967941,
+            "std": 0.11094466708740301,
+            "corr": -0.21652044130196613,
             "pixels": 21515
         },
         {
             "date": "20261113",
-            "mean": 0.08818102644221962,
-            "std": 0.12885322824257736,
-            "corr": -0.3558151872151294,
+            "mean": 0.034309553164131736,
+            "std": 0.12810122297352255,
+            "corr": -0.13441588816957445,
             "pixels": 21515
         },
         {
             "date": "20261114",
-            "mean": 0.08818102644221962,
-            "std": 0.12885322824257736,
-            "corr": -0.3896444429810077,
+            "mean": 0.022402758501280762,
+            "std": 0.12325637781777256,
+            "corr": -0.16059619409457163,
             "pixels": 21515
         },
         {
             "date": "20261115",
-            "mean": 0.08286603154562901,
-            "std": 0.11785144883636395,
-            "corr": -0.25795767093449584,
+            "mean": 0.022402758501280762,
+            "std": 0.12325637781777256,
+            "corr": -0.17801864351789207,
             "pixels": 21515
         },
         {
             "date": "20261116",
-            "mean": 0.0876049725527866,
-            "std": 0.10869622407430704,
-            "corr": -0.12609377995637155,
+            "mean": 0.022402758501280762,
+            "std": 0.12325637781777256,
+            "corr": -0.16117462574564334,
+            "pixels": 21515
+        },
+        {
+            "date": "20261117",
+            "mean": 0.022402758501280762,
+            "std": 0.12325637781777256,
+            "corr": -0.0890906033767946,
+            "pixels": 21515
+        },
+        {
+            "date": "20261118",
+            "mean": 0.07669979590922615,
+            "std": 0.10860936665909315,
+            "corr": 0.24315279842809923,
+            "pixels": 21515
+        },
+        {
+            "date": "20261119",
+            "mean": 0.07669979590922615,
+            "std": 0.10860936665909315,
+            "corr": 0.3089701631153432,
+            "pixels": 21515
+        },
+        {
+            "date": "20261120",
+            "mean": 0.07669979590922615,
+            "std": 0.10860936665909315,
+            "corr": 0.2698436468381121,
+            "pixels": 21515
+        },
+        {
+            "date": "20261121",
+            "mean": 0.07669979590922615,
+            "std": 0.10860936665909315,
+            "corr": 0.1949473221426302,
+            "pixels": 21515
+        },
+        {
+            "date": "20261122",
+            "mean": 0.07155078771649823,
+            "std": 0.09881346964639186,
+            "corr": 0.15652618441163804,
+            "pixels": 21515
+        },
+        {
+            "date": "20261123",
+            "mean": 0.07498165431571113,
+            "std": 0.09872587727678273,
+            "corr": 0.15428944400292233,
             "pixels": 21515
         }
     ],
-    "last_update": "2026-11-16 14:02:45"
+    "last_update": "2026-11-23 11:37:30"
 }
