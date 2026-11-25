@@ -1,20 +1,6 @@
 {
     "images": [
         {
-            "date": "20260826",
-            "model_image": "nemo_bs_temp_20260826.png",
-            "satellite_image": "temp_l3_20260826.png",
-            "difference_image": "diff_sst_20260826.png",
-            "validation_image": "valid_sst.png"
-        },
-        {
-            "date": "20260827",
-            "model_image": "nemo_bs_temp_20260827.png",
-            "satellite_image": "temp_l3_20260827.png",
-            "difference_image": "diff_sst_20260827.png",
-            "validation_image": "valid_sst.png"
-        },
-        {
             "date": "20260828",
             "model_image": "nemo_bs_temp_20260828.png",
             "satellite_image": "temp_l3_20260828.png",
@@ -629,23 +615,23 @@
             "satellite_image": "temp_l3_20261123.png",
             "difference_image": "diff_sst_20261123.png",
             "validation_image": "valid_sst.png"
+        },
+        {
+            "date": "20261124",
+            "model_image": "nemo_bs_temp_20261124.png",
+            "satellite_image": "temp_l3_20261124.png",
+            "difference_image": "diff_sst_20261124.png",
+            "validation_image": "valid_sst.png"
+        },
+        {
+            "date": "20261125",
+            "model_image": "nemo_bs_temp_20261125.png",
+            "satellite_image": "temp_l3_20261125.png",
+            "difference_image": "diff_sst_20261125.png",
+            "validation_image": "valid_sst.png"
         }
     ],
     "stats": [
-        {
-            "date": "20260826",
-            "mean": 0.39358481764793396,
-            "std": 0.8195086121559143,
-            "corr": 0.7388114224884061,
-            "pixels": 17914
-        },
-        {
-            "date": "20260827",
-            "mean": 0.13991859555244446,
-            "std": 0.5779241323471069,
-            "corr": 0.8738780823650762,
-            "pixels": 15375
-        },
         {
             "date": "20260828",
             "mean": 0.21304351091384888,
@@ -1229,39 +1215,53 @@
         },
         {
             "date": "20261119",
-            "mean": 0.5526654720306396,
-            "std": 0.444381445646286,
-            "corr": 0.9444335108540387,
+            "mean": 0.5534302592277527,
+            "std": 0.4445878267288208,
+            "corr": 0.9443839632391235,
             "pixels": 11906
         },
         {
             "date": "20261120",
-            "mean": 0.5235178470611572,
-            "std": 0.43718698620796204,
-            "corr": 0.9656746026776124,
+            "mean": 0.523981511592865,
+            "std": 0.4377670884132385,
+            "corr": 0.965582637044811,
             "pixels": 11710
         },
         {
             "date": "20261121",
-            "mean": 0.45235079526901245,
-            "std": 0.4219954311847687,
-            "corr": 0.9477832989025587,
+            "mean": 0.45341789722442627,
+            "std": 0.4225475788116455,
+            "corr": 0.9476516901235192,
             "pixels": 12037
         },
         {
             "date": "20261122",
-            "mean": 0.45023202896118164,
-            "std": 0.433611124753952,
-            "corr": 0.9447262519339191,
+            "mean": 0.4245980978012085,
+            "std": 0.41187113523483276,
+            "corr": 0.9500493879446835,
             "pixels": 17239
         },
         {
             "date": "20261123",
-            "mean": 0.44782325625419617,
-            "std": 0.5016121864318848,
-            "corr": 0.9604484363094091,
+            "mean": 0.3891475200653076,
+            "std": 0.46499478816986084,
+            "corr": 0.9661234078385563,
             "pixels": 9153
+        },
+        {
+            "date": "20261124",
+            "mean": 0.5245676040649414,
+            "std": 0.36904585361480713,
+            "corr": 0.9783375117126484,
+            "pixels": 1887
+        },
+        {
+            "date": "20261125",
+            "mean": 0.5939688682556152,
+            "std": 0.4457675814628601,
+            "corr": 0.9654130128681587,
+            "pixels": 6834
         }
     ],
-    "last_update": "2026-11-23 11:41:33"
+    "last_update": "2026-11-25 12:31:11"
 }
